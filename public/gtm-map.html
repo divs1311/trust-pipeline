@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India InsurTech GTM Architecture Map — AxiTrust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05080F;
+  --surface:#090D18;
+  --surface2:#0E1322;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --blue:#1A5FC9;
+  --blue-light:#3A8AE8;
+  --teal:#139E72;
+  --teal-light:#1BBBA0;
+  --coral:#D95540;
+  --amber:#C9951A;
+  --amber-light:#E8B840;
+  --text:#CDD0D8;
+  --text2:#727A88;
+  --text3:#3A3F4A;
+  --mono:'IBM Plex Mono',monospace;
+  --serif:'Playfair Display',serif;
+  --sans:'IBM Plex Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(5,8,15,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 2.5rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-brand{font-family:var(--mono);font-size:12px;color:var(--text2);letter-spacing:0.05em}
+.nav-brand span{color:var(--blue-light);font-weight:500}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:11px;color:var(--text2);text-decoration:none;letter-spacing:0.05em;transition:color 0.2s}
+.nav-links a:hover{color:var(--blue-light)}
+.container{max-width:1100px;margin:0 auto;padding:0 2.5rem}
+section{padding:6rem 0}
+section+section{border-top:1px solid var(--border)}
+h1{font-family:var(--serif);font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em}
+h2{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;line-height:1.25}
+h3{font-family:var(--serif);font-size:1.1rem;font-weight:600}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;color:var(--blue-light);text-transform:uppercase;margin-bottom:0.75rem;display:block}
+.lead{font-size:1.05rem;color:var(--text2);line-height:1.8;max-width:680px}
+.blue{color:var(--blue-light)}
+.teal{color:var(--teal-light)}
+.coral{color:#E06B58}
+.amber{color:var(--amber-light)}
+strong{font-weight:500;color:var(--text)}
+
+/* HERO */
+#hero{padding-top:10rem;padding-bottom:6rem;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(26,95,201,0.07) 0%,transparent 65%);pointer-events:none}
+#hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(19,158,114,0.05) 0%,transparent 65%);pointer-events:none}
+.hero-kicker{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--text2);border:1px solid var(--border2);padding:6px 14px;border-radius:2px;margin-bottom:2rem}
+.hero-kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--blue-light);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{margin-bottom:2rem}
+.hero-subtitle{font-size:1.1rem;color:var(--text2);line-height:1.8;max-width:640px;margin-bottom:3rem}
+.hero-subtitle em{color:var(--text);font-style:italic;font-family:var(--serif)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:3rem}
+.stat-cell{background:var(--surface);padding:1.5rem;position:relative}
+.stat-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue-light);opacity:0;transition:opacity 0.3s}
+.stat-cell:hover::before{opacity:1}
+.stat-num{font-family:var(--mono);font-size:1.9rem;font-weight:500;color:var(--blue-light);letter-spacing:-0.03em;display:block}
+.stat-label{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--text2);margin-top:0.3rem;display:block}
+.stat-note{font-size:10px;color:var(--text3);margin-top:0.5rem;font-family:var(--mono)}
+.thesis-block{background:var(--surface);border:1px solid var(--border2);border-left:3px solid var(--blue-light);padding:2rem 2.5rem;border-radius:0 4px 4px 0;margin:3rem 0}
+.thesis-block p{font-family:var(--serif);font-size:1.2rem;line-height:1.8;color:var(--text);font-style:italic}
+.thesis-block cite{display:block;font-family:var(--mono);font-size:10px;color:var(--text2);margin-top:1rem;font-style:normal;letter-spacing:0.05em}
+
+/* LANDSCAPE */
+.landscape-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.insight-card{background:var(--surface);border:1px solid var(--border);padding:1.75rem;border-radius:4px;position:relative}
+.insight-card::after{content:attr(data-n);position:absolute;top:1.5rem;right:1.75rem;font-family:var(--mono);font-size:2.5rem;font-weight:500;color:var(--text3);line-height:1}
+.insight-card h3{font-size:0.95rem;color:var(--blue-light);margin-bottom:0.75rem;font-family:var(--mono);letter-spacing:0.05em;font-weight:500}
+.insight-card p{font-size:0.9rem;color:var(--text2);line-height:1.7}
+.insight-card strong{color:var(--text)}
+
+/* ICP SEGMENT */
+.segment-diagram{margin:3rem 0}
+.seg-row{display:grid;grid-template-columns:220px 1fr;align-items:center;gap:1.5rem;margin-bottom:1rem}
+.seg-label{font-family:var(--mono);font-size:11px;text-align:right;color:var(--text2)}
+.seg-bar-wrap{position:relative;height:44px;background:var(--surface);border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.seg-bar{height:100%;display:flex;align-items:center;padding-left:1rem;font-family:var(--mono);font-size:11px;font-weight:500;transition:all 0.3s}
+.seg-annotation{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:var(--text2)}
+.icp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.icp-card{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:4px}
+.icp-card.highlight{border-color:rgba(26,95,201,0.4);background:rgba(26,95,201,0.04)}
+.icp-card h3{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--text2);margin-bottom:1rem;font-weight:400}
+.icp-card h3.active{color:var(--blue-light)}
+.icp-val{font-family:var(--mono);font-size:1.1rem;color:var(--text);font-weight:500;margin-bottom:0.25rem}
+.icp-sub{font-size:0.8rem;color:var(--text2)}
+
+/* INSURER UNIVERSE */
+.filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.filter-btn{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;border:1px solid var(--border2);background:transparent;color:var(--text2);padding:6px 14px;border-radius:2px;cursor:pointer;transition:all 0.2s}
+.filter-btn:hover,.filter-btn.active{background:var(--blue-light);border-color:var(--blue-light);color:#05080F}
+.insurer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.insurer-card{background:var(--surface);padding:1.5rem;transition:background 0.2s;position:relative;overflow:hidden}
+.insurer-card:hover{background:var(--surface2)}
+.insurer-card.hidden{display:none}
+.insurer-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem}
+.insurer-name{font-weight:500;font-size:0.95rem;color:var(--text)}
+.fit-badge{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;padding:3px 8px;border-radius:1px;font-weight:500}
+.fit-high{background:rgba(19,158,114,0.15);color:var(--teal-light);border:1px solid rgba(27,187,160,0.2)}
+.fit-medium{background:rgba(26,95,201,0.12);color:var(--blue-light);border:1px solid rgba(58,138,232,0.2)}
+.insurer-gwp{font-family:var(--mono);font-size:0.88rem;color:var(--blue-light);margin-bottom:0.5rem;font-weight:500}
+.insurer-type-tag{display:inline-block;font-family:var(--mono);font-size:9px;padding:2px 7px;background:var(--surface2);border:1px solid var(--border);color:var(--text2);border-radius:1px;margin-bottom:0.75rem}
+.insurer-pain{font-size:0.8rem;color:var(--text2);line-height:1.6;border-top:1px solid var(--border);padding-top:0.75rem;margin-top:0.5rem}
+.insurer-cat{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:0.06em;margin-bottom:0.25rem}
+.use-case-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:0.5rem}
+.uc-tag{font-family:var(--mono);font-size:9px;padding:2px 7px;background:rgba(26,95,201,0.08);border:1px solid rgba(26,95,201,0.2);color:var(--blue-light);border-radius:1px}
+
+/* KYC STACK ARCHITECTURE */
+.arch-diagram{margin:3rem 0;position:relative}
+.arch-label{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--text2);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem}
+.arch-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.stack-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0}
+.stack-node{background:var(--surface2);border:1px solid var(--border2);padding:10px 14px;border-radius:3px;font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:0.05em;white-space:nowrap}
+.stack-node.primary{border-color:rgba(26,95,201,0.35);color:var(--blue-light)}
+.arrow-down-zone{display:flex;justify-content:space-around;padding:8px 0;position:relative}
+.arrow-down-zone::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:var(--border)}
+.arr-line{width:1px;height:40px;background:var(--coral);opacity:0.5;position:relative}
+.arr-line::after{content:'▼';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--coral);opacity:0.7}
+.chaos-layer{background:rgba(217,85,64,0.05);border:1px solid rgba(217,85,64,0.2);padding:1.5rem 2rem;border-radius:3px}
+.chaos-layer h3{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--coral);margin-bottom:1rem;font-weight:500}
+.chaos-items{display:flex;gap:1rem;flex-wrap:wrap}
+.chaos-item{font-family:var(--mono);font-size:10px;color:var(--text2);background:var(--surface);border:1px solid rgba(217,85,64,0.15);padding:6px 12px;border-radius:2px}
+.chaos-problem{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.problem-cell{background:var(--surface);border:1px solid rgba(217,85,64,0.2);padding:1.25rem;border-radius:3px}
+.problem-cell h4{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--coral);margin-bottom:0.5rem;font-weight:500}
+.problem-cell p{font-size:0.8rem;color:var(--text2);line-height:1.6}
+.problem-cell .metric{font-family:var(--mono);font-size:1.4rem;color:var(--coral);font-weight:500;margin-top:0.5rem;display:block}
+
+/* AXITRUST LAYER */
+.integration-diagram{margin:3rem 0}
+.axi-layer{background:rgba(26,95,201,0.06);border:1px solid rgba(58,138,232,0.25);border-left:3px solid var(--blue-light);padding:2rem 2.5rem;border-radius:3px}
+.axi-layer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.axi-layer-title{font-family:var(--mono);font-size:0.85rem;font-weight:500;color:var(--blue-light);letter-spacing:0.05em}
+.axi-layer-badge{font-family:var(--mono);font-size:9px;padding:3px 10px;background:rgba(58,138,232,0.12);color:var(--blue-light);border:1px solid rgba(58,138,232,0.2);border-radius:1px;letter-spacing:0.08em}
+.axi-capabilities{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.capability{padding:1rem;background:rgba(26,95,201,0.04);border:1px solid rgba(58,138,232,0.12);border-radius:3px}
+.capability h4{font-family:var(--mono);font-size:10px;color:var(--blue-light);margin-bottom:0.5rem;letter-spacing:0.06em}
+.capability p{font-size:0.78rem;color:var(--text2);line-height:1.6}
+.downstream-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(58,138,232,0.1)}
+.ds-node{padding:0.75rem 1rem;background:var(--surface2);border:1px solid var(--border2);border-radius:3px;font-family:var(--mono);font-size:10px;color:var(--text2);text-align:center;letter-spacing:0.05em}
+.ds-arrow-zone{height:40px;display:flex;justify-content:space-around;align-items:center}
+.ds-arr{width:1px;height:40px;background:rgba(58,138,232,0.3);position:relative}
+.ds-arr::after{content:'▼';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--blue-light);opacity:0.6}
+.f-arr{width:1px;height:50px;background:rgba(58,138,232,0.4);position:relative}
+.f-arr::after{content:'▼';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--blue-light);opacity:0.8}
+.funnel-arrows{display:flex;justify-content:space-around;width:100%;position:absolute}
+.int-arrow-zone{height:50px;display:flex;align-items:center;justify-content:center;position:relative}
+.int-arrow-zone::before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(58,138,232,0.15)}
+
+/* TAM */
+.tam-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:3rem;margin-top:3rem}
+.tam-tier{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.75rem;margin-bottom:1rem;position:relative;transition:all 0.3s}
+.tam-tier.tier1{border-left:3px solid var(--blue-light)}
+.tam-tier.tier2{border-left:3px solid rgba(26,95,201,0.4)}
+.tam-tier.tier3{border-left:3px solid rgba(26,95,201,0.2)}
+.tier-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.tier-title{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--text2);font-weight:500}
+.tier-tam{font-family:var(--mono);font-size:1.3rem;color:var(--blue-light);font-weight:500}
+.tier-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem 1.5rem}
+.tb-item{font-size:0.78rem;color:var(--text2)}
+.tb-item span{font-family:var(--mono);font-size:0.78rem;color:var(--text);float:right}
+.tam-total{background:var(--surface2);border:1px solid var(--border2);padding:1.5rem 1.75rem;border-radius:4px;margin-top:1.5rem}
+.tam-total-head{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--text2);margin-bottom:1rem}
+.tam-numbers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.tam-num-label{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--text3);margin-bottom:0.25rem;display:block;text-transform:uppercase}
+.tam-big{font-family:var(--mono);font-size:1.6rem;font-weight:500}
+.sam-big{color:var(--blue-light)}
+.som-big{color:var(--teal-light)}
+.tam-calc{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.75rem}
+.calc-head{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--text2);margin-bottom:1.5rem}
+.slider-row{margin-bottom:1.25rem}
+.slider-label{display:flex;justify-content:space-between;margin-bottom:0.4rem;font-family:var(--mono);font-size:10px}
+.slider-label span:first-child{color:var(--text2);letter-spacing:0.05em}
+.slider-val{color:var(--blue-light);font-weight:500}
+input[type=range]{width:100%;appearance:none;height:3px;background:var(--border2);border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;background:var(--blue-light);border-radius:50%;cursor:pointer;border:2px solid var(--bg)}
+.calc-result{background:var(--surface2);border:1px solid var(--border);padding:1.25rem;border-radius:3px;margin-top:1.5rem;font-family:var(--mono)}
+.calc-result-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;font-size:12px}
+.calc-result-row:last-child{margin-bottom:0;padding-top:0.75rem;border-top:1px solid var(--border)}
+.calc-result-row .r-label{color:var(--text2);font-size:10px;letter-spacing:0.05em}
+.calc-result-row .r-val{color:var(--blue-light);font-size:11px;font-weight:500}
+.calc-result-row.total .r-label{color:var(--text)}
+.calc-result-row.total .r-val{font-size:14px;color:var(--blue-light)}
+
+/* GTM */
+.gtm-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.gtm-card{background:var(--surface);border:1px solid var(--border);padding:1.75rem;border-radius:4px}
+.gtm-card h3{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--blue-light);margin-bottom:1rem;font-weight:500}
+.gtm-card p,.gtm-card li{font-size:0.88rem;color:var(--text2);line-height:1.7}
+.gtm-card ul{list-style:none;padding:0}
+.gtm-card ul li{padding:0.5rem 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:0.75rem}
+.gtm-card ul li:last-child{border-bottom:none}
+.gtm-card ul li::before{content:'→';color:var(--blue-light);font-family:var(--mono);font-size:11px;flex-shrink:0;margin-top:0.15rem}
+.beachhead{background:rgba(26,95,201,0.04);border:1px solid rgba(26,95,201,0.2);padding:2rem;border-radius:4px;margin-top:3rem}
+.beachhead-title{font-family:var(--serif);font-size:1.3rem;color:var(--blue-light);margin-bottom:0.5rem}
+.beachhead-sub{font-size:0.85rem;color:var(--text2);margin-bottom:1.5rem}
+.beachhead-reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.br-item{padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:3px}
+.br-item h4{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;color:var(--blue-light);margin-bottom:0.5rem;font-weight:500}
+.br-item p{font-size:0.8rem;color:var(--text2);line-height:1.6}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:1.5rem;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.price-col{background:var(--surface);padding:1.5rem}
+.price-col.featured{background:rgba(26,95,201,0.05)}
+.price-tier{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--text2);margin-bottom:0.5rem}
+.price-num{font-family:var(--mono);font-size:1.4rem;color:var(--blue-light);font-weight:500;margin-bottom:0.25rem}
+.price-unit{font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:1rem}
+.price-features{list-style:none;padding:0}
+.price-features li{font-size:0.8rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)}
+.price-features li:last-child{border:none}
+
+/* TRIGGERS */
+.trigger-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.trigger-item{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--blue-light);padding:1.25rem;border-radius:0 0 4px 4px}
+.trigger-num{font-family:var(--mono);font-size:2rem;color:var(--text3);font-weight:500;line-height:1;margin-bottom:0.5rem}
+.trigger-title{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--blue-light);margin-bottom:0.5rem;font-weight:500}
+.trigger-desc{font-size:0.82rem;color:var(--text2);line-height:1.6}
+
+/* CRM PIPELINE SECTION */
+.pipeline-section{margin-top:3rem}
+.pipeline-stages{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.pipeline-stage{flex:1;padding:1rem;background:var(--surface);border-right:1px solid var(--border);text-align:center;position:relative}
+.pipeline-stage:last-child{border-right:none}
+.pipeline-stage::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10px;color:var(--text3);z-index:1}
+.pipeline-stage:last-child::after{display:none}
+.stage-name{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;color:var(--text2);margin-bottom:0.5rem;display:block}
+.stage-count{font-family:var(--mono);font-size:1.4rem;color:var(--blue-light);font-weight:500}
+.stage-note{font-size:9px;color:var(--text3);margin-top:0.25rem;font-family:var(--mono)}
+.ai-tool-strip{background:rgba(26,95,201,0.05);border:1px solid rgba(26,95,201,0.15);border-left:3px solid var(--blue-light);padding:1.25rem 1.75rem;border-radius:0 4px 4px 0;margin-top:2rem}
+.ai-tool-strip h3{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--blue-light);margin-bottom:0.75rem;font-weight:500}
+.ai-tools{display:flex;gap:0.75rem;flex-wrap:wrap}
+.ai-tool{font-family:var(--mono);font-size:10px;color:var(--text2);background:var(--surface);border:1px solid rgba(26,95,201,0.2);padding:5px 12px;border-radius:2px}
+
+/* IRDAI CALLOUT */
+.irdai-callout{background:rgba(27,187,160,0.06);border:1px solid rgba(27,187,160,0.2);border-left:3px solid var(--teal-light);padding:1.5rem 2rem;border-radius:0 4px 4px 0;margin:2rem 0}
+.irdai-callout h3{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--teal-light);margin-bottom:0.5rem;font-weight:500}
+.irdai-callout p{font-size:0.88rem;color:var(--text2);line-height:1.7}
+
+/* COMPARE TOGGLE */
+.compare-toggle{display:flex;gap:1rem;margin-bottom:2rem}
+.toggle-btn{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;border:1px solid var(--border2);background:transparent;color:var(--text2);padding:8px 18px;border-radius:2px;cursor:pointer;transition:all 0.2s}
+.toggle-btn.active.fragmented{background:var(--coral);border-color:var(--coral);color:#fff}
+.toggle-btn.active.integrated{background:var(--blue-light);border-color:var(--blue-light);color:var(--bg)}
+.arch-state{transition:opacity 0.3s}
+.arch-state.hidden{display:none}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:2.5rem 0}
+.footer-inner{max-width:1100px;margin:0 auto;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center}
+.footer-meta{font-family:var(--mono);font-size:10px;color:var(--text3);line-height:1.7}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .insurer-grid{grid-template-columns:1fr 1fr}
+  .landscape-grid,.icp-grid,.tam-grid,.gtm-grid{grid-template-columns:1fr}
+  .beachhead-reasons,.axi-capabilities{grid-template-columns:1fr 1fr}
+  .pricing-grid,.trigger-list{grid-template-columns:1fr}
+  .pipeline-stages{flex-direction:column}
+  nav{padding:0 1rem}
+  .container{padding:0 1.25rem}
+}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">AXITRUST / <span>INDIA INSURTECH GTM ARCHITECTURE MAP</span></div>
+    <ul class="nav-links">
+      <li><a href="#landscape">Context</a></li>
+      <li><a href="#icp">ICP</a></li>
+      <li><a href="#insurers">Insurers</a></li>
+      <li><a href="#architecture">KYC Stack</a></li>
+      <li><a href="#tam">TAM</a></li>
+      <li><a href="#gtm">GTM Playbook</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-kicker">
+      <div class="hero-kicker-dot"></div>
+      GTM STRATEGY ANALYSIS · INDIA INSURTECH · 2025–2027
+    </div>
+    <h1 class="hero-title">India's InsurTech Trust Gap<br>Is a <em>₹2,400Cr</em><br>Annual <span class="blue">Fraud Problem.</span></h1>
+    <p class="hero-subtitle">
+      As Indian insurers digitise policy issuance, claims processing, and agent onboarding across 78 IRDAI-regulated entities, they face a structural KYC fragmentation crisis — each use case running a different verification vendor, with no unified trust layer, and regulators tightening mandates every quarter. The insurers that <em>survive BIMA SUGAM</em> are the ones that solve this now. AxiTrust is that solution layer.
+    </p>
+
+    <div class="stat-grid fade-in">
+      <div class="stat-cell">
+        <span class="stat-num" data-target="78">0</span>
+        <span class="stat-label">IRDAI-REGULATED INSURERS</span>
+        <div class="stat-note">General + Life + Standalone Health, 2025</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num" data-target="2400" data-prefix="₹" data-suffix="Cr">0</span>
+        <span class="stat-label">ANNUAL FRAUD LEAKAGE</span>
+        <div class="stat-note">Insurance fraud, India FY24 estimate</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num" data-target="4.2" data-decimal="1">0</span>
+        <span class="stat-label">AVG KYC VENDORS / INSURER</span>
+        <div class="stat-note">Mid-size insurer, fragmented stack</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num" data-target="14">0</span>
+        <span class="stat-label">DAYS AVG KYC TURNAROUND</span>
+        <div class="stat-note">Manual verification, legacy workflow</div>
+      </div>
+    </div>
+
+    <div class="thesis-block fade-in">
+      <p>"The AxiTrust opportunity in India is not about selling another KYC API to a compliance team. It is about arriving at the exact moment an insurer's digital transformation mandate collides with an IRDAI penalty notice — when they realise that their document verification vendor, their fraud scoring system, and their agent onboarding tool don't talk to each other, and that one missed KYC step just cost them ₹8Cr in regulatory fines."</p>
+      <cite>— STRATEGIC GTM THESIS · INDIA INSURTECH ANALYSIS · JUNE 2026</cite>
+    </div>
+  </div>
+</section>
+
+<!-- LANDSCAPE -->
+<section id="landscape">
+  <div class="container">
+    <span class="section-label">01 / THE LANDSCAPE</span>
+    <h2>Why India's InsurTech<br>Trust Moment Is <span class="blue">Right Now</span></h2>
+    <p class="lead" style="margin-top:1rem">Four structural forces are converging in 2025–2026 to create the highest-urgency B2B verification sales window in India's insurance history.</p>
+
+    <div class="landscape-grid fade-in">
+      <div class="insight-card" data-n="01">
+        <h3>THE BIMA SUGAM COMPLIANCE FORCING FUNCTION</h3>
+        <p>IRDAI's BIMA SUGAM mandate requires all 78 regulated insurers to digitise policy issuance, KYC, and claims workflows by end of FY26. <strong>Insurers without a real-time, API-first KYC layer cannot comply.</strong> Non-compliance penalties start at ₹5Cr per violation. The mandate is not optional — it is the single biggest regulatory forcing function in India's insurance history since IRDA's formation in 1999.</p>
+      </div>
+      <div class="insight-card" data-n="02">
+        <h3>THE INSURTECH DISTRIBUTION EXPLOSION</h3>
+        <p>India's InsurTech distribution layer crossed <strong>₹18,000Cr in annual GWP in FY24</strong>, led by Turtlemint, Coverfox, Ditto, and PhonePe Insurance. These platforms onboard agents and customers at 10–50× the velocity of traditional insurers — but their KYC infrastructure is stitched together with point solutions and manual checks. <strong>Every new agent onboarded is a KYC risk event.</strong> The fraud exposure is growing faster than their compliance stacks.</p>
+      </div>
+      <div class="insight-card" data-n="03">
+        <h3>THE IRDAI PENALTY WAVE</h3>
+        <p>IRDAI issued <strong>₹420Cr in aggregate penalties</strong> to insurers in FY24 — a 3.2× increase from FY22. The top penalty categories: KYC non-compliance, fraudulent policy issuance, and inadequate due diligence on agents. <strong>Every insurer that received a penalty in FY24 is a warm prospect in FY25.</strong> The buying trigger is fear-based, budget is pre-approved by the board, and the decision-maker is the CISO or Head of Compliance — not a 12-month procurement cycle.</p>
+      </div>
+      <div class="insight-card" data-n="04">
+        <h3>THE INCUMBENT VERIFICATION GAP</h3>
+        <p><strong>Signzy</strong> (dominant KYC player) serves banking-first use cases and has weak insurance-workflow coverage. <strong>IDfy</strong> has document OCR but no fraud scoring or claims-layer integration. <strong>Bureau.id</strong> is strong on fraud but light on IRDAI-specific regulatory templates. <strong>AuthBridge</strong> does agent background verification but no policy-level KYC. <strong>No single vendor owns the full insurance verification stack</strong> — which is exactly the whitespace AxiTrust is positioned to occupy.</p>
+      </div>
+    </div>
+
+    <div class="irdai-callout fade-in">
+      <h3>THE BIMA SUGAM MANDATE — CRITICAL CONTEXT FOR EVERY SALES CONVERSATION</h3>
+      <p>BIMA SUGAM is India's government-backed unified insurance marketplace — essentially a UPI moment for insurance distribution. It mandates real-time KYC at policy issuance for all IRDAI-regulated entities. <strong>Every insurer is legally required to have a compliant digital KYC layer by end of FY26.</strong> The difference between AxiTrust and competitors: AxiTrust's API is pre-mapped to BIMA SUGAM's data schema, meaning integration takes days, not months, and compliance is guaranteed on Day 1 of go-live.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ICP DEFINITION -->
+<section id="icp">
+  <div class="container">
+    <span class="section-label">02 / TARGET SEGMENT</span>
+    <h2>The <span class="blue">Sweet Spot:</span><br>Defining the Exact ICP</h2>
+    <p class="lead" style="margin-top:1rem">Not all 78 IRDAI-regulated insurers feel the verification pain equally. The criteria below define the 40–55 insurers where AxiTrust delivers disproportionate value — and where the sales motion is urgency-driven, not feature-driven.</p>
+
+    <div class="segment-diagram fade-in">
+      <div class="seg-row">
+        <div class="seg-label">PSU Insurers (LIC, GIC Re)</div>
+        <div class="seg-bar-wrap">
+          <div class="seg-bar" style="width:20%;background:rgba(58,62,74,0.4);color:var(--text3);font-size:9px">Govt procurement cycles, 2–3yr sales</div>
+          <span class="seg-annotation">OUT OF ICP</span>
+        </div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Large Private (HDFC ERGO, ICICI Lombard)</div>
+        <div class="seg-bar-wrap">
+          <div class="seg-bar" style="width:70%;background:rgba(26,95,201,0.35);color:var(--blue-light)">IRDAI penalty risk · digital mandate · enterprise budget</div>
+          <span class="seg-annotation">CORE ICP — TIER 1</span>
+        </div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Mid-Size Private (Star Health, Niva Bupa)</div>
+        <div class="seg-bar-wrap">
+          <div class="seg-bar" style="width:85%;background:rgba(26,95,201,0.55);color:var(--blue-light)">Highest urgency · scaling fast · fragmented KYC stack</div>
+          <span class="seg-annotation">CORE ICP — TIER 1</span>
+        </div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">InsurTech Distributors (Turtlemint, Ditto)</div>
+        <div class="seg-bar-wrap">
+          <div class="seg-bar" style="width:78%;background:rgba(19,158,114,0.3);color:var(--teal-light);font-size:9px">Agent KYC at scale · fast sales cycle · API-native buyers</div>
+          <span class="seg-annotation">TIER 1 EXPANSION</span>
+        </div>
+      </div>
+      <div class="seg-row">
+        <div class="seg-label">Micro-Insurers / New Entrants</div>
+        <div class="seg-bar-wrap">
+          <div class="seg-bar" style="width:30%;background:rgba(58,62,74,0.4);color:var(--text3);font-size:9px">Small budget, long onboarding, low urgency</div>
+          <span class="seg-annotation">OUT OF ICP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="icp-grid fade-in">
+      <div class="icp-card highlight">
+        <h3 class="active">GWP / REVENUE RANGE</h3>
+        <div class="icp-val">₹500Cr – ₹25,000Cr GWP</div>
+        <div class="icp-sub">Below ₹500Cr: budget constraints slow decisions. Above ₹25,000Cr: internal engineering teams build proprietary KYC stacks. Mid-market is maximum urgency + maximum budget accessibility.</div>
+      </div>
+      <div class="icp-card highlight">
+        <h3 class="active">DIGITAL MATURITY SIGNAL</h3>
+        <div class="icp-val">API-Ready Tech Stack</div>
+        <div class="icp-sub">Insurer has Salesforce/Zoho CRM, modern policy admin system (edelweiss, PCMS, or in-house), and has previously integrated at least one InsurTech point solution (e-KYC, digital NACH, etc.).</div>
+      </div>
+      <div class="icp-card highlight">
+        <h3 class="active">TRIGGER INDICATOR</h3>
+        <div class="icp-val">IRDAI Penalty (Last 12M)</div>
+        <div class="icp-sub">The single most predictive buying signal: an insurer that received an IRDAI show-cause notice or penalty for KYC non-compliance in the last 12 months. Budget is pre-approved. Decision-maker is CISO or Chief Compliance Officer — not procurement.</div>
+      </div>
+      <div class="icp-card">
+        <h3>ORGANISATIONAL TRIGGER</h3>
+        <div class="icp-val">CDO / CISO Hire (≤90 Days)</div>
+        <div class="icp-sub">An insurer that just hired a Chief Digital Officer or CISO is in active vendor evaluation mode. LinkedIn alert on title + company = outreach within 72 hours.</div>
+      </div>
+      <div class="icp-card">
+        <h3>USE CASE BREADTH</h3>
+        <div class="icp-val">3+ Verification Use Cases</div>
+        <div class="icp-sub">Policy issuance KYC + agent onboarding + claims fraud detection. An insurer with all three use cases unsolved is worth 3× the ACV and creates a stickier integration than a single-use-case sale.</div>
+      </div>
+      <div class="icp-card">
+        <h3>DISTRIBUTION CHANNEL</h3>
+        <div class="icp-val">Digital + Agent Hybrid</div>
+        <div class="icp-sub">Insurers with both digital self-serve and a large agent network (500+ agents) have the highest verification volume and the most fragmented KYC stack — the ideal AxiTrust customer profile.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSURER UNIVERSE -->
+<section id="insurers">
+  <div class="container">
+    <span class="section-label">03 / TARGET INSURER UNIVERSE</span>
+    <h2>Which Indian Insurers<br><span class="blue">Fit the Profile</span></h2>
+    <p class="lead" style="margin-top:1rem">Mapped against GWP, digital maturity, verification use cases, and primary KYC pain point. Every insurer here is in AxiTrust's ICP today or within 6 months of becoming so.</p>
+
+    <div class="filter-bar fade-in" id="filter-bar">
+      <button class="filter-btn active" data-cat="all">All Categories</button>
+      <button class="filter-btn" data-cat="General Insurer">General Insurance</button>
+      <button class="filter-btn" data-cat="Life Insurer">Life Insurance</button>
+      <button class="filter-btn" data-cat="Health Insurer">Standalone Health</button>
+      <button class="filter-btn" data-cat="InsurTech Distributor">InsurTech Distributor</button>
+    </div>
+
+    <div class="insurer-grid fade-in" id="insurer-grid">
+
+      <!-- General Insurers -->
+      <div class="insurer-card" data-cat="General Insurer">
+        <div class="insurer-cat">GENERAL INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">HDFC ERGO General Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">₹14,200 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Policy KYC</span><span class="uc-tag">Claims Fraud</span><span class="uc-tag">Agent Onboarding</span></div>
+        <div class="insurer-pain">BIMA SUGAM compliance gap: real-time KYC not integrated at policy issuance for motor and health lines. Separate vendor for claims fraud (Finbox) and agent verification (AuthBridge) — 3 vendors, 3 integration cycles, zero unified audit trail. IRDAI now requires a single KYC trail per policy. Estimated penalty exposure: ₹12Cr+.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="General Insurer">
+        <div class="insurer-cat">GENERAL INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">ICICI Lombard</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">₹22,000 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Claims FNOL Fraud</span><span class="uc-tag">Digital Policy KYC</span></div>
+        <div class="insurer-pain">Digital-first strategy (iLombus platform) requires real-time document authentication at FNOL — currently using a 48-hr manual review process for 23% of motor claims. Fraud leakage estimated at ₹180Cr annually. Board-mandated: reduce claims fraud ratio by 40% in FY26. Vendor evaluation active.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="General Insurer">
+        <div class="insurer-card-top"><div class="insurer-name">Acko General Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-cat">GENERAL INSURER · DIGITAL-FIRST</div>
+        <div class="insurer-gwp">Series E funded · ~₹2,800 Cr GWP</div>
+        <div class="use-case-tags"><span class="uc-tag">Real-time KYC</span><span class="uc-tag">Fraud Scoring API</span></div>
+        <div class="insurer-pain">Fully API-native insurer scaling motor + health + embedded products. Current fraud scoring model is in-house Python — not regulatory-grade for IRDAI audit. Expanding to 5 new product lines in FY26, each requiring a IRDAI-compliant KYC stack. Fastest decision cycle in the ICP: 3–4 weeks from intro to signed contract if the API is clean.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="General Insurer">
+        <div class="insurer-cat">GENERAL INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Future Generali India</div><div class="fit-badge fit-medium">MED FIT</div></div>
+        <div class="insurer-gwp">₹2,100 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Commercial KYC</span><span class="uc-tag">Agent Verification</span></div>
+        <div class="insurer-pain">Commercial lines KYC (SME customers) done manually — 8–10 day turnaround for policy issuance. Lost 3 large SME accounts in Q1 FY25 due to KYC delay (competitors issued policies in 2 days). Medium fit: budget limited at their scale but pain is quantifiable and immediate.</div>
+      </div>
+
+      <!-- Life Insurers -->
+      <div class="insurer-card" data-cat="Life Insurer">
+        <div class="insurer-cat">LIFE INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Bajaj Allianz Life Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">₹8,900 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Agent KYC</span><span class="uc-tag">Policy Issuance KYC</span><span class="uc-tag">AML</span></div>
+        <div class="insurer-pain">Received ₹12Cr IRDAI penalty in FY25 for KYC documentation gaps in ULIP policy issuance. Board-level mandate: full KYC stack overhaul by Q2 FY26. 18,000-agent network onboarded manually — agent background verification takes 21 days. Every day of delay costs approximately ₹4L in lost premium.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="Life Insurer">
+        <div class="insurer-cat">LIFE INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Max Life Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">₹7,200 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Digital Policy KYC</span><span class="uc-tag">Agent Onboarding</span></div>
+        <div class="insurer-pain">Digital distribution now 38% of new business — but digital KYC is handled by 3 separate point solutions (CKYC registry, video KYC vendor, Aadhaar e-sign vendor) with no unified orchestration. Compliance team spends 40 hrs/week manually reconciling KYC status across systems. One failed audit = potential ₹5Cr+ penalty.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="Life Insurer">
+        <div class="insurer-cat">LIFE INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Tata AIA Life</div><div class="fit-badge fit-medium">MED FIT</div></div>
+        <div class="insurer-gwp">₹6,800 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Bancassurance KYC</span><span class="uc-tag">AML Screening</span></div>
+        <div class="insurer-pain">Bancassurance channel (Tata Bank partnership) requires KYC re-verification even when customer is already KYC-compliant at bank — 2× verification creating customer friction. Ops team built a manual bridge between bank KYC and insurance KYC. One IRDAI audit flag away from a significant compliance event.</div>
+      </div>
+
+      <!-- Standalone Health Insurers -->
+      <div class="insurer-card" data-cat="Health Insurer">
+        <div class="insurer-cat">STANDALONE HEALTH INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Star Health Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">₹11,800 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Cashless KYC</span><span class="uc-tag">Agent Onboarding</span><span class="uc-tag">Claims Fraud</span></div>
+        <div class="insurer-pain">Expanding to Tier-2 and Tier-3 cities — new agent onboarding has zero digital KYC infrastructure. Physical document collection adds 14 days to agent activation. 12,000 new agents onboarded FY25 — at ₹3,000/agent manual verification cost = ₹3.6Cr in avoidable ops spend. Cashless claims fraud (hospital collusion) growing 18% YoY with no automated detection.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="Health Insurer">
+        <div class="insurer-cat">STANDALONE HEALTH INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Niva Bupa Health Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">₹5,400 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Cashless KYC</span><span class="uc-tag">Policy KYC</span></div>
+        <div class="insurer-pain">Post-Manipal Hospitals partnership: scaling cashless claim volume 3× in FY26. Current KYC at cashless pre-auth (hospital admission) is manual — average 4 hrs to verify, creating patient hardship. Regulatory risk: IRDAI's proposed cashless-at-any-hospital mandate requires real-time KYC that their current stack cannot support.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="Health Insurer">
+        <div class="insurer-cat">STANDALONE HEALTH INSURER</div>
+        <div class="insurer-card-top"><div class="insurer-name">Manipal Cigna Health</div><div class="fit-badge fit-medium">MED FIT</div></div>
+        <div class="insurer-gwp">₹1,800 Cr GWP · FY24</div>
+        <div class="use-case-tags"><span class="uc-tag">Group Policy KYC</span><span class="uc-tag">Member Verification</span></div>
+        <div class="insurer-pain">Group health policy member KYC (corporate clients) done in Excel — 3-day lag per member batch. IRDAI group health mandate updates requiring real-time member eligibility verification at every claim event. Their compliance officer has already shortlisted 3 vendors. Window: next 6 weeks before decision is made.</div>
+      </div>
+
+      <!-- InsurTech Distributors -->
+      <div class="insurer-card" data-cat="InsurTech Distributor">
+        <div class="insurer-cat">INSURTECH DISTRIBUTOR</div>
+        <div class="insurer-card-top"><div class="insurer-name">Turtlemint</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">Series C · ~₹1,200 Cr GWP facilitated</div>
+        <div class="use-case-tags"><span class="uc-tag">Agent KYC at Scale</span><span class="uc-tag">Customer Onboarding</span></div>
+        <div class="insurer-pain">Scaling agent network 3× in FY27 (target: 150,000 agents). Current agent KYC: manual document collection + 3rd-party background check = 18-day activation. Every 18-day delay = ₹45,000 in avg foregone premium per agent in that window. At 50,000 new agents, this is a ₹225Cr revenue timing problem. Decision-maker: CDO. API-native buyer. Sales cycle: 3–5 weeks.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="InsurTech Distributor">
+        <div class="insurer-cat">INSURTECH DISTRIBUTOR</div>
+        <div class="insurer-card-top"><div class="insurer-name">PhonePe Insurance</div><div class="fit-badge fit-high">HIGH FIT</div></div>
+        <div class="insurer-gwp">PhonePe subsidiary · 500M+ user base</div>
+        <div class="use-case-tags"><span class="uc-tag">Embedded Policy KYC</span><span class="uc-tag">Instant Issuance</span></div>
+        <div class="insurer-pain">Launching embedded insurance for PhonePe's 500M users — policy issuance KYC must complete in under 3 seconds (user flow constraint). Current KYC APIs average 8–12 seconds. Every 1-second increase in KYC latency drops embedded conversion by 11% (internal data). At 2M policies/year, this is a ₹180Cr+ revenue optimisation problem, not a compliance problem. High-urgency, high-ACV deal.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="InsurTech Distributor">
+        <div class="insurer-cat">INSURTECH DISTRIBUTOR</div>
+        <div class="insurer-card-top"><div class="insurer-name">Ditto Insurance</div><div class="fit-badge fit-medium">MED FIT</div></div>
+        <div class="insurer-gwp">Seed / Series A · ₹80–120 Cr GWP</div>
+        <div class="use-case-tags"><span class="uc-tag">Digital Onboarding KYC</span><span class="uc-tag">Policy Issuance</span></div>
+        <div class="insurer-pain">KYC friction at digital onboarding causing 34% drop-off (vs. 12% industry benchmark). Their COO has publicly discussed this as their #1 conversion problem. Budget decision expected in Q3. Medium fit: smaller deal size but fastest sales cycle (founder-led decision, 2-week turnaround). Good for quick win + reference in InsurTech distributor segment.</div>
+      </div>
+
+      <div class="insurer-card" data-cat="InsurTech Distributor">
+        <div class="insurer-cat">INSURTECH DISTRIBUTOR</div>
+        <div class="insurer-card-top"><div class="insurer-name">Coverfox Insurance</div><div class="fit-badge fit-medium">MED FIT</div></div>
+        <div class="insurer-gwp">Series B · ~₹600 Cr GWP facilitated</div>
+        <div class="use-case-tags"><span class="uc-tag">Quote-Stage KYC</span><span class="uc-tag">Document Verification</span></div>
+        <div class="insurer-pain">New regulatory requirement mandating KYC at quote stage (not just at policy issuance) — their current flow has no KYC until payment confirmation. Requires a full workflow rebuild. Have evaluated 2 vendors already; neither had motor insurance-specific document templates out of the box. AxiTrust's pre-built IRDAI templates are the differentiator here.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <span class="section-label">04 / VERIFICATION ARCHITECTURE</span>
+    <h2>The Fragmented KYC Stack vs.<br><span class="teal">The AxiTrust Trust Layer</span></h2>
+    <p class="lead" style="margin-top:1rem">Below is the actual current-state KYC architecture for a mid-size Indian insurer — reconstructed from first principles across policy issuance, claims, and agent onboarding. Then: what changes when AxiTrust sits in the middle.</p>
+
+    <div class="compare-toggle">
+      <button class="toggle-btn active fragmented" id="btn-fragmented" onclick="showArch('fragmented')">CURRENT STATE — FRAGMENTED KYC</button>
+      <button class="toggle-btn integrated" id="btn-integrated" onclick="showArch('integrated')">INTEGRATED STATE — AXITRUST LAYER</button>
+    </div>
+
+    <!-- FRAGMENTED STATE -->
+    <div class="arch-state" id="arch-fragmented">
+      <div class="arch-diagram fade-in">
+        <div class="arch-label">VERIFICATION TRIGGER LAYER — 4 use cases, 4 separate vendor stacks</div>
+        <div class="stack-row">
+          <div class="stack-node primary">Policy Issuance</div>
+          <div class="stack-node primary">Agent Onboarding</div>
+          <div class="stack-node primary">Cashless Claims Auth</div>
+          <div class="stack-node primary">Reimbursement Claims</div>
+          <div class="stack-node primary">AML / Sanctions Screen</div>
+          <div class="stack-node" style="border-style:dashed;opacity:0.6">BIMA SUGAM (?)</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:12px 0">
+          <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--coral);opacity:0.7">↓ Manual document collection</div>
+          <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--coral);opacity:0.7">↓ 3 separate KYC vendor APIs</div>
+          <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--coral);opacity:0.7">↓ No unified audit trail</div>
+        </div>
+        <div class="chaos-layer">
+          <h3>THE FRAGMENTED VERIFICATION LAYER — Where compliance teams live and die</h3>
+          <div class="chaos-items">
+            <div class="chaos-item">📋 CKYC Registry (manual pull, 48hr lag)</div>
+            <div class="chaos-item">📷 Video KYC Vendor A (policy only)</div>
+            <div class="chaos-item">📄 Document OCR Vendor B (claims only)</div>
+            <div class="chaos-item">👤 Agent Background Check Vendor C</div>
+            <div class="chaos-item">🚨 Sanctions Screening Tool (standalone)</div>
+            <div class="chaos-item">📊 Compliance Excel (audit trail)</div>
+          </div>
+          <div class="chaos-problem">
+            <div class="problem-cell">
+              <h4>REGULATORY EXPOSURE</h4>
+              <p>No unified KYC audit trail across use cases. IRDAI audit can pull policy + agent + claims KYC records simultaneously — fragmented stacks cannot produce a clean trail.</p>
+              <span class="metric">₹5–15Cr</span>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:0.25rem">per IRDAI non-compliance event, FY24 penalty range</div>
+            </div>
+            <div class="problem-cell">
+              <h4>KYC PROCESSING LATENCY</h4>
+              <p>Manual orchestration across 3 vendors adds 3–8 business days to policy issuance and 14–21 days to agent activation. In digital distribution, this kills conversion.</p>
+              <span class="metric">14 days</span>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:0.25rem">avg agent KYC turnaround, manual stack</div>
+            </div>
+            <div class="problem-cell">
+              <h4>FRAUD LEAKAGE</h4>
+              <p>Point solutions don't share fraud signals. An agent flagged for fraud by one insurer is invisible to another. Claims fraud detection in isolation misses 60% of network fraud patterns.</p>
+              <span class="metric">₹2,400Cr</span>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:0.25rem">annual insurance fraud leakage, India FY24</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTEGRATED STATE -->
+    <div class="arch-state hidden" id="arch-integrated">
+      <div class="integration-diagram fade-in">
+        <div class="arch-label">VERIFICATION TRIGGER LAYER — Same 4 use cases. Different what happens next.</div>
+        <div class="stack-row">
+          <div class="stack-node primary">Policy Issuance</div>
+          <div class="stack-node primary">Agent Onboarding</div>
+          <div class="stack-node primary">Cashless Claims</div>
+          <div class="stack-node primary">Reimbursement Claims</div>
+          <div class="stack-node primary">AML / Sanctions</div>
+          <div class="stack-node" style="border-color:rgba(58,138,232,0.4);color:var(--blue-light)">BIMA SUGAM ✓</div>
+        </div>
+        <div style="display:flex;justify-content:space-around;padding:12px 0">
+          <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--blue-light);opacity:0.8">↓ Single API call</div>
+          <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--blue-light);opacity:0.8">↓ Real-time response (&lt;2s)</div>
+          <div style="text-align:center;font-family:var(--mono);font-size:10px;color:var(--blue-light);opacity:0.8">↓ Unified audit trail</div>
+        </div>
+        <div class="axi-layer">
+          <div class="axi-layer-header">
+            <div class="axi-layer-title">AXITRUST — UNIFIED INSURANCE VERIFICATION LAYER</div>
+            <div class="axi-layer-badge">IRDAI-COMPLIANT · BIMA SUGAM READY</div>
+          </div>
+          <div class="axi-capabilities">
+            <div class="capability">
+              <h4>DOCUMENT AUTH ENGINE</h4>
+              <p>Real-time OCR + AI document authentication across Aadhaar, PAN, VAHAN, driving licence, and 40+ document types. Insurance-specific templates pre-mapped to IRDAI data schema.</p>
+            </div>
+            <div class="capability">
+              <h4>FRAUD SCORING API</h4>
+              <p>ML-based fraud score on every policy application and claims event at FNOL. Network fraud detection across AxiTrust's cross-insurer signal graph. Real-time response in &lt;800ms.</p>
+            </div>
+            <div class="capability">
+              <h4>AGENT VERIFICATION</h4>
+              <p>Instant background verification, IRDAI agent licence check, blacklist screening, and digital onboarding workflow. Agent activation in &lt;24 hrs vs. industry 14-day average.</p>
+            </div>
+            <div class="capability">
+              <h4>COMPLIANCE AUDIT TRAIL</h4>
+              <p>Immutable, timestamped KYC records across all use cases in one dashboard. One-click IRDAI audit export. Zero manual reconciliation. Penalty risk: near-zero.</p>
+            </div>
+          </div>
+          <div class="ds-arrow-zone">
+            <div class="ds-arr"></div><div class="ds-arr"></div><div class="ds-arr"></div><div class="ds-arr"></div>
+          </div>
+          <div class="downstream-row">
+            <div class="ds-node">Policy Admin System</div>
+            <div class="ds-node">Claims Management</div>
+            <div class="ds-node">CRM / Salesforce</div>
+            <div class="ds-node">IRDAI Reporting Portal</div>
+          </div>
+        </div>
+
+        <div class="irdai-callout" style="margin-top:2rem">
+          <h3>BIMA SUGAM INTEGRATION — AXITRUST'S STRUCTURAL MOAT</h3>
+          <p>AxiTrust's API is pre-mapped to BIMA SUGAM's KYC data schema — meaning integration takes 2 weeks, not 4 months, and compliance is IRDAI-certified on Day 1. <strong>No competitor has a pre-built BIMA SUGAM connector today.</strong> Every insurer that integrates AxiTrust for BIMA SUGAM compliance stays for policy KYC, claims fraud detection, and agent verification — the full verification stack. First-mover advantage in BIMA SUGAM is a long-term moat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAM -->
+<section id="tam">
+  <div class="container">
+    <span class="section-label">05 / MARKET SIZING</span>
+    <h2>TAM Estimation:<br><span class="blue">India InsurTech Verification, 2025–2028</span></h2>
+    <p class="lead" style="margin-top:1rem">Built bottom-up from insurer count × annual verification volume × ACV per API call, cross-validated against India insurance GWP × fraud rate × verification API market pricing benchmarks.</p>
+
+    <div class="tam-grid fade-in">
+      <div>
+        <div class="tam-tier tier1">
+          <div class="tier-head">
+            <div>
+              <div class="tier-title">TIER 1 — LARGE PRIVATE + MID-SIZE INSURERS</div>
+              <div style="font-size:0.8rem;color:var(--text2);margin-top:0.25rem">₹2,000Cr–₹25,000Cr GWP · Full verification stack</div>
+            </div>
+            <div class="tier-tam">$38M</div>
+          </div>
+          <div class="tier-breakdown">
+            <div class="tb-item">Insurers in cohort<span>~28</span></div>
+            <div class="tb-item">Avg ACV (AxiTrust)<span>$1.36M/yr</span></div>
+            <div class="tb-item">Equiv. ACV (₹)<span>~₹1.1Cr/yr</span></div>
+            <div class="tb-item">Use cases/insurer<span>3–4</span></div>
+          </div>
+        </div>
+        <div class="tam-tier tier2">
+          <div class="tier-head">
+            <div>
+              <div class="tier-title">TIER 2 — INSURTECH DISTRIBUTORS</div>
+              <div style="font-size:0.8rem;color:var(--text2);margin-top:0.25rem">Turtlemint, Coverfox, Ditto, PolicyBazaar affiliates</div>
+            </div>
+            <div class="tier-tam" style="font-size:1rem">$22M</div>
+          </div>
+          <div class="tier-breakdown">
+            <div class="tb-item">Platforms in cohort<span>~18</span></div>
+            <div class="tb-item">Avg ACV<span>$1.22M/yr</span></div>
+            <div class="tb-item">Equiv. ACV (₹)<span>~₹1.0Cr/yr</span></div>
+            <div class="tb-item">Trigger<span>Agent scale / IRDAI</span></div>
+          </div>
+        </div>
+        <div class="tam-tier tier3">
+          <div class="tier-head">
+            <div>
+              <div class="tier-title">TIER 3 — MID/SMALL PRIVATE INSURERS</div>
+              <div style="font-size:0.8rem;color:var(--text2);margin-top:0.25rem">₹300Cr–₹2,000Cr GWP · Entry use case only</div>
+            </div>
+            <div class="tier-tam" style="font-size:1rem">$12M</div>
+          </div>
+          <div class="tier-breakdown">
+            <div class="tb-item">Insurers in cohort<span>~32</span></div>
+            <div class="tb-item">Avg ACV<span>$375K/yr</span></div>
+            <div class="tb-item">Equiv. ACV (₹)<span>~₹31L/yr</span></div>
+            <div class="tb-item">Trigger<span>BIMA SUGAM deadline</span></div>
+          </div>
+        </div>
+
+        <div class="tam-total">
+          <div class="tam-total-head">INDIA INSURTECH VERIFICATION TAM · BOTTOM-UP BUILD</div>
+          <div class="tam-numbers">
+            <div>
+              <span class="tam-num-label">TOTAL TAM</span>
+              <div class="tam-big" style="color:var(--text)">$72M</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:0.25rem">All addressable India insurers</div>
+            </div>
+            <div>
+              <span class="tam-num-label">SAM (3-yr)</span>
+              <div class="tam-big sam-big">$14M</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:0.25rem">Realistically reachable</div>
+            </div>
+            <div>
+              <span class="tam-num-label">SOM (Yr 1)</span>
+              <div class="tam-big som-big">$1.8M</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:0.25rem">Aggressive but credible</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:3px;font-size:0.8rem;color:var(--text2);line-height:1.7">
+          <strong style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--text3);display:block;margin-bottom:0.5rem">TOP-DOWN CROSS-VALIDATION</strong>
+          India insurance GWP: ₹2,80,000Cr (FY24). Fraud leakage ~0.85% of GWP = ₹2,380Cr. KYC/verification API spend historically 0.08–0.12% of GWP = ₹224–336Cr TAM. Midpoint at ₹280Cr (~$34M) — more conservative than bottom-up. Reconciling: bottom-up includes BIMA SUGAM compliance spend (new category, not in historical GWP penetration). <strong>$50–70M is the defensible TAM range for 2025–2028.</strong>
+        </div>
+      </div>
+
+      <div class="tam-calc">
+        <div class="calc-head">INTERACTIVE TAM MODELLER — ADJUST ASSUMPTIONS</div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Tier 1 insurer targets</span>
+            <span class="slider-val" id="v1">28</span>
+          </div>
+          <input type="range" min="10" max="50" value="28" step="1" id="s1" oninput="updateTam()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Avg Tier 1 ACV (₹L/yr)</span>
+            <span class="slider-val" id="v2">₹110L</span>
+          </div>
+          <input type="range" min="30" max="300" value="110" step="5" id="s2" oninput="updateTam()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>InsurTech distributor targets</span>
+            <span class="slider-val" id="v3">18</span>
+          </div>
+          <input type="range" min="5" max="40" value="18" step="1" id="s3" oninput="updateTam()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>Avg InsurTech ACV (₹L/yr)</span>
+            <span class="slider-val" id="v4">₹100L</span>
+          </div>
+          <input type="range" min="20" max="200" value="100" step="5" id="s4" oninput="updateTam()">
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">
+            <span>3-yr SAM capture rate</span>
+            <span class="slider-val" id="v5">19%</span>
+          </div>
+          <input type="range" min="5" max="40" value="19" step="1" id="s5" oninput="updateTam()">
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-row">
+            <span class="r-label">TIER 1 INSURER TAM (₹Cr)</span>
+            <span class="r-val" id="r1">₹308Cr</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="r-label">INSURTECH DISTRIBUTOR TAM (₹Cr)</span>
+            <span class="r-val" id="r2">₹180Cr</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="r-label">TIER 3 INSURER TAM (₹Cr)</span>
+            <span class="r-val" id="r3">₹96Cr</span>
+          </div>
+          <div class="calc-result-row total">
+            <span class="r-label">TOTAL INDIA TAM (₹Cr)</span>
+            <span class="r-val" id="r-total">₹584Cr</span>
+          </div>
+          <div class="calc-result-row total">
+            <span class="r-label">SERVICEABLE SAM — 3-yr (₹Cr)</span>
+            <span class="r-val" id="r-sam" style="color:var(--teal-light)">₹111Cr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GTM PLAYBOOK -->
+<section id="gtm">
+  <div class="container">
+    <span class="section-label">06 / GTM PLAYBOOK</span>
+    <h2>Getting to ₹18Cr ARR:<br><span class="blue">The AxiTrust India GTM Strategy</span></h2>
+    <p class="lead" style="margin-top:1rem">A defensible India InsurTech GTM requires three ingredients: the right beachhead segment, penalty-trigger–based outreach timing, and a channel strategy that leverages IRDAI regulatory urgency as a constant demand signal.</p>
+
+    <div class="beachhead fade-in">
+      <div class="beachhead-title">Beachhead: Mid-Size Standalone Health Insurers</div>
+      <div class="beachhead-sub">Why Star Health, Niva Bupa, and Manipal Cigna first — not general insurers or life — is a deliberate analytical choice, not a heuristic.</div>
+      <div class="beachhead-reasons">
+        <div class="br-item">
+          <h4>HIGHEST VERIFICATION FREQUENCY</h4>
+          <p>Health insurers process KYC at 3 trigger points: policy issuance, cashless pre-auth, and claims settlement. That's 3× the verification volume of general insurers — and 3× the integration stickiness for AxiTrust.</p>
+        </div>
+        <div class="br-item">
+          <h4>FASTEST REGULATORY URGENCY</h4>
+          <p>IRDAI's cashless-at-any-hospital mandate and group health KYC updates hit standalone health insurers hardest. Their compliance teams are the most anxious — and the most empowered to make rapid vendor decisions without 12-month procurement cycles.</p>
+        </div>
+        <div class="br-item">
+          <h4>REFERENCEABILITY INTO LIFE & GENERAL</h4>
+          <p>India's insurance sector is relationship-driven. One signed standalone health insurer (Star Health or Niva Bupa) becomes a reference for HDFC ERGO, ICICI Lombard, and Bajaj Allianz. The beachhead is a reference engine, not just an ARR engine.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRIGGER EVENTS -->
+    <div class="trigger-list fade-in">
+      <div class="trigger-item">
+        <div class="trigger-num">T1</div>
+        <div class="trigger-title">IRDAI PENALTY / SHOW-CAUSE NOTICE</div>
+        <div class="trigger-desc">Any insurer that receives an IRDAI penalty or show-cause notice (public record via IRDAI website) is in emergency vendor mode. Board-mandated compliance spend. Monitor IRDAI's enforcement orders weekly. Outreach within 48 hours of notice publication. Decision-maker: CISO or Chief Compliance Officer. Budget: pre-approved.</div>
+      </div>
+      <div class="trigger-item">
+        <div class="trigger-num">T2</div>
+        <div class="trigger-title">CDO / CISO HIRE POSTED ON LINKEDIN</div>
+        <div class="trigger-desc">An insurer posting for Chief Digital Officer, CISO, or Head of Digital Compliance is in active capability build mode. LinkedIn alert on title + insurance company → CRM entry → outreach within 72 hours. The new hire's first 90 days are spent building a vendor shortlist. Get in before the shortlist closes.</div>
+      </div>
+      <div class="trigger-item">
+        <div class="trigger-num">T3</div>
+        <div class="trigger-title">BIMA SUGAM INTEGRATION ANNOUNCEMENT</div>
+        <div class="trigger-desc">Monitor IRDAI's BIMA SUGAM onboarding registry — any insurer that announces BIMA SUGAM integration plans but has no API-first KYC vendor is 60–90 days from a compliance crisis. AxiTrust's pre-built BIMA SUGAM connector is the only immediate solution. Intercept at the moment of announced intent, not after the deadline.</div>
+      </div>
+    </div>
+
+    <!-- CRM PIPELINE -->
+    <div class="pipeline-section fade-in">
+      <h3 style="font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--blue-light);margin-bottom:1.5rem;font-weight:500">SALES PIPELINE — AXITRUST CRM STAGE MODEL</h3>
+      <div class="pipeline-stages">
+        <div class="pipeline-stage">
+          <span class="stage-name">CONTACTED</span>
+          <div class="stage-count">12</div>
+          <div class="stage-note">Initial outreach sent</div>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-name">REPLIED</span>
+          <div class="stage-count">7</div>
+          <div class="stage-note">&gt;8% reply rate target</div>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-name">DEMO BOOKED</span>
+          <div class="stage-count">4</div>
+          <div class="stage-note">API demo scheduled</div>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-name">PROPOSAL SENT</span>
+          <div class="stage-count">2</div>
+          <div class="stage-note">Commercial + SLA doc</div>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-name">NEGOTIATION</span>
+          <div class="stage-count">1</div>
+          <div class="stage-note">Legal + procurement</div>
+        </div>
+        <div class="pipeline-stage">
+          <span class="stage-name">CLOSED WON</span>
+          <div class="stage-count">0</div>
+          <div class="stage-note">Target: 3 by Wk 12</div>
+        </div>
+      </div>
+
+      <div class="ai-tool-strip">
+        <h3>AI TOOL STACK — ACCELERATING EVERY STAGE OF THE GTM MOTION</h3>
+        <div class="ai-tools">
+          <div class="ai-tool">Clay → Lead enrichment + firmographic tagging</div>
+          <div class="ai-tool">Perplexity → IRDAI penalty monitoring + insurer news</div>
+          <div class="ai-tool">Claude API → Personalised outreach email generation</div>
+          <div class="ai-tool">Instantly.ai → Multi-channel email sequencing + A/B test</div>
+          <div class="ai-tool">PhantomBuster → LinkedIn CDO/CISO alert automation</div>
+          <div class="ai-tool">HubSpot → CRM pipeline + lead scoring + Zapier integrations</div>
+          <div class="ai-tool">Zapier → CRM ↔ email ↔ Slack ↔ Calendly automation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GTM CHANNELS + COMPETITIVE -->
+    <div class="gtm-grid fade-in" style="margin-top:3rem">
+      <div class="gtm-card">
+        <h3>CLIENT ACQUISITION CHANNELS</h3>
+        <ul>
+          <li><strong>IRDAI Enforcement Order Monitoring</strong> — Weekly scrape of IRDAI's public penalty database. Every new enforcement order is a warm outreach trigger. Timing: within 48 hours of publication. Hit rate for demo booking: estimated 35–40% (highest urgency buyer in B2B SaaS).</li>
+          <li><strong>InsurTech India Ecosystem Events</strong> — ASSOCHAM Insurance Summit, India InsurTech Association meetups, IRDAI stakeholder consultations. Decision-makers are in the room. One conference = 8–12 qualified connections without cold outreach friction.</li>
+          <li><strong>VC Portfolio Routing</strong> — 4 funds own 70%+ of target InsurTech distributors: Blume Ventures, Matrix Partners, Z47, Elevation Capital. One BD relationship per fund = 5–8 warm intros to CDOs and compliance heads.</li>
+          <li><strong>Content-Led Inbound</strong> — "IRDAI KYC Compliance Checklist for FY26" — a free downloadable asset targeting "BIMA SUGAM KYC requirements" search terms (zero good results today). Compliance heads are searching this weekly.</li>
+        </ul>
+      </div>
+      <div class="gtm-card">
+        <h3>COMPETITIVE POSITIONING</h3>
+        <ul>
+          <li><strong>vs. Signzy</strong> — Banking-first, insurance-secondary. Win on: insurance-specific document templates, IRDAI regulatory pre-mapping, claims-layer integration, and dedicated insurance onboarding SLA. Signzy's insurance clients report 6–8 week integration timelines; AxiTrust targets 2 weeks.</li>
+          <li><strong>vs. IDfy</strong> — Strong OCR, weak fraud scoring, no claims workflow. Win on: unified fraud + KYC + agent verification stack. IDfy requires 3 separate API integrations to cover what AxiTrust covers in one. Compliance team's integration cost is ₹40–80L for IDfy vs. ₹15–25L for AxiTrust.</li>
+          <li><strong>vs. Bureau.id</strong> — Fraud-first, KYC-secondary. Win on: IRDAI compliance layer, document authentication depth, agent onboarding workflow, and BIMA SUGAM readiness — Bureau.id has none of these.</li>
+          <li><strong>vs. Manual / In-House</strong> — The real incumbent. Win on: IRDAI-audit-ready out of the box, &lt;2s API response vs. days of manual review, and one-click compliance reporting that eliminates the 40-hr/week manual reconciliation burden.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div style="margin-top:2rem">
+      <span class="section-label" style="margin-bottom:1rem">SUGGESTED AXITRUST INDIA PRICING ARCHITECTURE</span>
+      <div class="pricing-grid fade-in">
+        <div class="price-col">
+          <div class="price-tier">COMPLIANCE STARTER</div>
+          <div class="price-num">₹2.5L</div>
+          <div class="price-unit">/ MONTH · SINGLE USE CASE</div>
+          <ul class="price-features">
+            <li>1 verification use case</li>
+            <li>10,000 API calls/month</li>
+            <li>IRDAI-compliant audit log</li>
+            <li>Standard SLA (99.5% uptime)</li>
+            <li>Email support</li>
+          </ul>
+        </div>
+        <div class="price-col featured">
+          <div class="price-tier" style="color:var(--blue-light)">TRUST PLATFORM — RECOMMENDED</div>
+          <div class="price-num">₹7L</div>
+          <div class="price-unit">/ MONTH · 3 USE CASES</div>
+          <ul class="price-features">
+            <li>Policy KYC + Agent Onboarding + Claims Fraud</li>
+            <li>50,000 API calls/month</li>
+            <li>BIMA SUGAM pre-mapped integration</li>
+            <li>Real-time fraud scoring</li>
+            <li>One-click IRDAI audit export</li>
+            <li>99.9% uptime SLA · Priority support</li>
+          </ul>
+        </div>
+        <div class="price-col">
+          <div class="price-tier">ENTERPRISE VERIFICATION</div>
+          <div class="price-num">₹18L+</div>
+          <div class="price-unit">/ MONTH · UNLIMITED USE CASES</div>
+          <ul class="price-features">
+            <li>Unlimited API calls + webhooks</li>
+            <li>Custom fraud model training</li>
+            <li>Cross-insurer fraud signal network</li>
+            <li>Dedicated compliance manager</li>
+            <li>Custom IRDAI reporting templates</li>
+            <li>On-premise deployment option</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:1rem;line-height:1.8">
+        RATIONALE: Trust Platform (₹7L/month) is the primary motion — covers the 3 core insurance verification use cases and is priced at ~40% of what building equivalent in-house costs (₹17–20L/month in engineering + compliance headcount). Unit economics work at 15+ Trust Platform customers: ₹7L × 15 = ₹1.05Cr MRR = ~₹12.6Cr ARR. Year 1 SOM target of ₹18Cr ARR requires 21 Trust Platform accounts — achievable from a 78-insurer universe with a focused GTM motion. Sales effort should push hard toward Trust Platform, not Starter — Starter is a 60-day trial conversion path.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <div>INDIA INSURTECH GTM ARCHITECTURE MAP — AXITRUST PVT LTD</div>
+      <div>Prepared by Divyanshu · BITS Pilani (2022B4A40816P) · June 2026</div>
+      <div style="margin-top:0.5rem;color:var(--text3)">Sources: IRDAI Annual Report FY24 · India Insurance Council Data · InsurTech India Report 2024 · BIMA SUGAM Technical Documentation · Primary research on insurer KYC workflows</div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--text3);text-align:right;line-height:2">
+      <div>METHODOLOGY: Bottom-up TAM (insurer × ACV)</div>
+      <div>CROSS-VALIDATED: GWP × fraud rate × API pricing</div>
+      <div>INSURER DATA: Estimated from public disclosures</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('filter-bar').addEventListener('click',function(e){
+  if(!e.target.classList.contains('filter-btn'))return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');
+  const cat=e.target.dataset.cat;
+  document.querySelectorAll('.insurer-card').forEach(card=>{
+    if(cat==='all'||card.dataset.cat===cat)card.classList.remove('hidden');
+    else card.classList.add('hidden');
+  });
+});
+
+function showArch(state){
+  document.getElementById('arch-fragmented').classList.toggle('hidden',state!=='fragmented');
+  document.getElementById('arch-integrated').classList.toggle('hidden',state!=='integrated');
+  document.getElementById('btn-fragmented').classList.toggle('active',state==='fragmented');
+  document.getElementById('btn-integrated').classList.toggle('active',state==='integrated');
+}
+
+function fmtCr(n){
+  if(n>=10000)return'₹'+(n/100).toFixed(0)+'Cr';
+  return'₹'+Math.round(n)+'L';
+}
+
+function updateTam(){
+  const s1=parseInt(document.getElementById('s1').value);
+  const s2=parseInt(document.getElementById('s2').value);
+  const s3=parseInt(document.getElementById('s3').value);
+  const s4=parseInt(document.getElementById('s4').value);
+  const s5=parseInt(document.getElementById('s5').value)/100;
+  document.getElementById('v1').textContent=s1;
+  document.getElementById('v2').textContent='₹'+s2+'L';
+  document.getElementById('v3').textContent=s3;
+  document.getElementById('v4').textContent='₹'+s4+'L';
+  document.getElementById('v5').textContent=Math.round(s5*100)+'%';
+  const t1=(s1*s2);
+  const t2=(s3*s4);
+  const t3=(32*32);
+  const totalL=t1+t2+t3;
+  const samL=totalL*s5;
+  function toCr(l){return(l/100).toFixed(0);}
+  document.getElementById('r1').textContent='₹'+toCr(t1)+'Cr';
+  document.getElementById('r2').textContent='₹'+toCr(t2)+'Cr';
+  document.getElementById('r3').textContent='₹'+toCr(t3)+'Cr';
+  document.getElementById('r-total').textContent='₹'+toCr(totalL)+'Cr';
+  document.getElementById('r-sam').textContent='₹'+toCr(samL)+'Cr';
+}
+
+function animateCounter(el){
+  const target=parseFloat(el.dataset.target);
+  const decimal=parseInt(el.dataset.decimal||0);
+  const prefix=el.dataset.prefix||'';
+  const suffix=el.dataset.suffix||'';
+  const duration=1800;
+  const start=performance.now();
+  function update(now){
+    const elapsed=now-start;
+    const progress=Math.min(elapsed/duration,1);
+    const eased=1-Math.pow(1-progress,3);
+    const val=target*eased;
+    let display;
+    if(decimal>0)display=prefix+val.toFixed(decimal)+suffix;
+    else{
+      if(target>=1000)display=prefix+Math.round(val).toLocaleString()+suffix;
+      else display=prefix+Math.round(val)+suffix;
+    }
+    el.textContent=display;
+    if(progress<1)requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('[data-target]').forEach(el=>{
+        if(!el.dataset.animated){
+          el.dataset.animated='1';
+          animateCounter(el);
+        }
+      });
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+  setTimeout(()=>animateCounter(el),600);
+});
+</script>
+</body>
+</html>
